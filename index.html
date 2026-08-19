@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kuiz Pendidikan Islam Tahun 2</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+            min-height: 100vh;
+            color: #263238;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px 50px;
+        }
+
+        /* HEADER */
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .header .icon {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            color: #1565c0;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 17px;
+            color: #607d8b;
+        }
+
+        /* SECTION */
+        .section {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #eeeeee;
+        }
+
+        .jawi-title {
+            color: #6a1b9a;
+        }
+
+        .pi-title {
+            color: #1565c0;
+        }
+
+        /* QUIZ BUTTON */
+        .quiz-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .quiz-button {
+            text-decoration: none;
+            color: white;
+            padding: 18px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 17px;
+            font-weight: bold;
+            transition: 0.2s ease;
+        }
+
+        .quiz-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0,0,0,0.15);
+        }
+
+        .jawi-button {
+            background: linear-gradient(135deg, #7b1fa2, #9c27b0);
+        }
+
+        .pi-button {
+            background: linear-gradient(135deg, #1565c0, #1976d2);
+        }
+
+        .arrow {
+            font-size: 24px;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            color: #78909c;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 650px) {
+
+            .container {
+                padding: 15px 12px 30px;
+            }
+
+            .header {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .header p {
+                font-size: 15px;
+            }
+
+            .quiz-list {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 20px 15px;
+            }
+
+            .section-title {
+                font-size: 21px;
+            }
+
+            .quiz-button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="icon">📚</div>
+
+        <h1>
+            Selamat Datang ke Kuiz<br>
+            Pendidikan Islam Tahun 2
+        </h1>
+
+        <p>
+            Pilih kuiz yang ingin kamu jawab.
+        </p>
+
+    </div>
+
+
+    <!-- JAWI -->
+    <div class="section">
+
+        <div class="section-title jawi-title">
+            ✏️ Jawi
+        </div>
+
+        <div class="quiz-list">
+
+            <a href="padanan-huruf-jawi.html"
+               class="quiz-button jawi-button">
+                <span>Kuiz Padanan Huruf Jawi</span>
+                <span class="arrow">➜</span>
+            </a>
+
+            <a href="kvk-1.html"
+               class="quiz-button jawi-button">
+                <span>Kuiz KVK 1</span>
+                <span class="arrow">➜</span>
+            </a>
+
+            <a href="kvk-2.html"
+               class="quiz-button jawi-button">
+                <span>Kuiz KVK 2</span>
+                <span class="arrow">➜</span>
+            </a>
+
+            <a href="kvk-3.html"
+               class="quiz-button jawi-button">
+                <span>Kuiz KVK 3</span>
+                <span class="arrow">➜</span>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- PENDIDIKAN ISLAM -->
+    <div class="section">
+
+        <div class="section-title pi-title">
+            🕌 Pendidikan Islam
+        </div>
+
+        <div class="quiz-list">
+
+            <a href="surah-annas-1.html"
+               class="quiz-button pi-button">
+                <span>Kuiz Surah An-Nas 1</span>
+                <span class="arrow">➜</span>
+            </a>
+
+            <a href="surah-annas-2.html"
+               class="quiz-button pi-button">
+                <span>Kuiz Surah An-Nas 2</span>
+                <span class="arrow">➜</span>
+            </a>
+
+            <a href="surah-alfalaq-1.html"
+               class="quiz-button pi-button">
+                <span>Kuiz Surah Al-Falaq 1</span>
+                <span class="arrow">➜</span>
+            </a>
+
+            <a href="surah-alfalaq-2.html"
+               class="quiz-button pi-button">
+                <span>Kuiz Surah Al-Falaq 2</span>
+                <span class="arrow">➜</span>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>Kuiz Pendidikan Islam Tahun 2</p>
+        <p>Selamat belajar dan semoga berjaya!</p>
+    </div>
+
+</div>
+
+</body>
+</html>
