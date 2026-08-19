@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Latihan Jawi KVK</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef7ff, #ffffff);
+    min-height: 100vh;
+    color: #222;
+}
+
+.container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+/* TAJUK */
+.header {
+    background: #1769aa;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.header p {
+    margin: 8px 0 0;
+    font-size: 18px;
+}
+
+/* INFO SOALAN */
+.info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    margin-top: 15px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#questionNumber {
+    color: #1769aa;
+}
+
+#score {
+    color: #16803c;
+}
+
+/* KAWASAN SOALAN */
+.question-area {
+    background: white;
+    margin-top: 20px;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+    text-align: center;
+}
+
+.instruction {
+    font-size: 20px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+/* LABEL */
+.box-label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* KOTAK PERKATAAN RUMI */
+.word-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0 35px;
+}
+
+.word-box {
+    width: 90px;
+    height: 90px;
+    border: 3px solid #1769aa;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    font-weight: bold;
+    background: #eef7ff;
+}
+
+/* KOTAK A */
+.vowel-box {
+    background: #fff4cc;
+    border-color: #e0a800;
+    color: #a36b00;
+}
+
+/* KOTAK JAWI */
+.answer-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 0 30px;
+}
+
+.answer-box {
+    width: 110px;
+    height: 100px;
+    border: 4px dashed #888;
+    border-radius: 14px;
+    background: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Noto Naskh Arabic",
+                 "Traditional Arabic",
+                 Arial,
+                 sans-serif;
+
+    font-size: 55px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.answer-box:hover {
+    background: #eef7ff;
+    border-color: #1769aa;
+}
+
+.answer-box.selected {
+    border-color: #1769aa;
+    background: #dff0ff;
+}
+
+/* KAWASAN PILIHAN */
+.main-content {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* PILIHAN HURUF JAWI */
+.choices-area {
+    flex: 1;
+    background: #f8f8f8;
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid #ddd;
+}
+
+.choices-title {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.choices {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+}
+
+.jawi-choice {
+    height: 65px;
+    border: 2px solid #1769aa;
+    border-radius: 10px;
+    background: white;
+
+    font-family: "Noto Naskh Arabic",
+                 "Traditional Arabic",
+                 Arial,
+                 sans-serif;
+
+    font-size: 38px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.jawi-choice:hover {
+    background: #dff0ff;
+    transform: scale(1.04);
+}
+
+.jawi-choice.active {
+    background: #1769aa;
+    color: white;
+}
+
+.jawi-choice.used {
+    visibility: hidden;
+}
+
+/* BUTANG */
+.button-area {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.check-btn {
+    background: #16803c;
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    font-size: 19px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.check-btn:hover {
+    background: #0f612d;
+}
+
+.reset-btn {
+    background: #777;
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    font-size: 19px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.reset-btn:hover {
+    background: #555;
+}
+
+/* MAKLUM BALAS */
+.feedback {
+    min-height: 35px;
+    margin-top: 18px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.feedback.correct {
+    color: #16803c;
+}
+
+.feedback.wrong {
+    color: #c62828;
+}
+
+/* SKRIN KEPUTUSAN */
+.result-screen {
+    display: none;
+    background: white;
+    margin-top: 25px;
+    padding: 45px 25px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+}
+
+.result-screen h2 {
+    font-size: 32px;
+    color: #1769aa;
+    margin-top: 0;
+}
+
+.final-score {
+    font-size: 60px;
+    font-weight: bold;
+    color: #16803c;
+    margin: 20px;
+}
+
+.result-message {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+/* SKRIN KUIZ */
+.quiz-screen {
+    display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .header p {
+        font-size: 16px;
+    }
+
+    .info-bar {
+        font-size: 15px;
+    }
+
+    .word-box {
+        width: 70px;
+        height: 70px;
+        font-size: 32px;
+    }
+
+    .answer-box {
+        width: 85px;
+        height: 80px;
+        font-size: 45px;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+
+    .choices {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .jawi-choice {
+        height: 55px;
+        font-size: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- TAJUK -->
+    <div class="header">
+        <h1>🌟 LATIHAN JAWI KVK 🌟</h1>
+        <p>Bina perkataan KVK dengan huruf Jawi</p>
+    </div>
+
+
+    <!-- SKRIN KUIZ -->
+    <div class="quiz-screen" id="quizScreen">
+
+        <!-- INFO -->
+        <div class="info-bar">
+
+            <div id="questionNumber">
+                Soalan 1 / 30
+            </div>
+
+            <div id="score">
+                Markah: 0
+            </div>
+
+        </div>
+
+
+        <!-- SOALAN -->
+        <div class="question-area">
+
+            <div class="instruction">
+                Pilih huruf Jawi yang betul dan letakkan
+                pada kotak kosong.
+            </div>
+
+
+            <!-- PERKATAAN RUMI -->
+            <div class="box-label">
+                Perkataan
+            </div>
+
+            <div class="word-boxes">
+
+                <div class="word-box" id="letter1">
+                    B
+                </div>
+
+                <div class="word-box vowel-box" id="letter2">
+                    A
+                </div>
+
+                <div class="word-box" id="letter3">
+                    K
+                </div>
+
+            </div>
+
+
+            <!-- JAWAPAN JAWI -->
+            <div class="box-label">
+                Jawi
+            </div>
+
+            <div class="answer-boxes">
+
+                <div class="answer-box"
+                     id="answerBox1"
+                     onclick="placeAnswer(0)">
+                </div>
+
+                <div class="answer-box"
+                     id="answerBox2"
+                     onclick="placeAnswer(1)">
+                </div>
+
+            </div>
+
+
+            <!-- PILIHAN HURUF -->
+            <div class="main-content">
+
+                <div class="choices-area">
+
+                    <div class="choices-title">
+                        Pilihan Huruf Jawi
+                    </div>
+
+                    <div class="choices" id="choices">
+                        <!-- Pilihan huruf akan dimasukkan
+                             menggunakan JavaScript -->
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTANG -->
+            <div class="button-area">
+
+                <button class="check-btn"
+                        onclick="checkAnswer()">
+                    ✓ Semak Jawapan
+                </button>
+
+                <button class="reset-btn"
+                        onclick="resetQuiz()">
+                    ↻ Buat Semula
+                </button>
+
+            </div>
+
+
+            <!-- MAKLUM BALAS -->
+            <div class="feedback" id="feedback"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SKRIN KEPUTUSAN -->
+    <div class="result-screen" id="resultScreen">
+
+        <h2>🎉 Tahniah! Kuiz Tamat 🎉</h2>
+
+        <div class="final-score" id="finalScore">
+            0 / 30
+        </div>
+
+        <div class="result-message" id="resultMessage">
+            Syabas!
+        </div>
+
+        <button class="reset-btn"
+                onclick="resetQuiz()">
+            ↻ Buat Semula
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- JAVASCRIPT AKAN DITAMBAH DI BAHAGIAN SETERUSNYA -->
+
+<script>
+
+/* =========================
+   DATA SOALAN
+========================= */
+
+const questions = [
+
+    {
+        rumi:["B","A","K"],
+        jawi:["ب","ق"]
+    },
+
+    {
+        rumi:["B","A","N"],
+        jawi:["ب","ن"]
+    },
+
+    {
+        rumi:["B","A","R"],
+        jawi:["ب","ر"]
+    },
+
+    {
+        rumi:["B","A","S"],
+        jawi:["ب","س"]
+    },
+
+    {
+        rumi:["B","A","T"],
+        jawi:["ب","ت"]
+    },
+
+    {
+        rumi:["C","A","M"],
+        jawi:["چ","م"]
+    },
+
+    {
+        rumi:["C","A","N"],
+        jawi:["چ","ن"]
+    },
+
+    {
+        rumi:["C","A","T"],
+        jawi:["چ","ت"]
+    },
+
+    {
+        rumi:["D","A","M"],
+        jawi:["د","م"]
+    },
+
+    {
+        rumi:["D","A","N"],
+        jawi:["د","ن"]
+    },
+
+    {
+        rumi:["G","A","R"],
+        jawi:["ݢ","ر"]
+    },
+
+    {
+        rumi:["G","A","S"],
+        jawi:["ݢ","س"]
+    },
+
+    {
+        rumi:["J","A","M"],
+        jawi:["ج","م"]
+    },
+
+    {
+        rumi:["J","A","N"],
+        jawi:["ج","ن"]
+    },
+
+    {
+        rumi:["K","A","K"],
+        jawi:["ک","ق"]
+    },
+
+    {
+        rumi:["K","A","M"],
+        jawi:["ک","م"]
+    },
+
+    {
+        rumi:["K","A","N"],
+        jawi:["ک","ن"]
+    },
+
+    {
+        rumi:["L","A","P"],
+        jawi:["ل","ڤ"]
+    },
+
+    {
+        rumi:["L","A","S"],
+        jawi:["ل","س"]
+    },
+
+    {
+        rumi:["M","A","K"],
+        jawi:["م","ق"]
+    },
+
+    {
+        rumi:["M","A","N"],
+        jawi:["م","ن"]
+    },
+
+    {
+        rumi:["M","A","P"],
+        jawi:["م","ڤ"]
+    },
+
+    {
+        rumi:["M","A","S"],
+        jawi:["م","س"]
+    },
+
+    {
+        rumi:["N","A","M"],
+        jawi:["ن","م"]
+    },
+
+    {
+        rumi:["P","A","N"],
+        jawi:["ڤ","ن"]
+    },
+
+    {
+        rumi:["R","A","M"],
+        jawi:["ر","م"]
+    },
+
+    {
+        rumi:["R","A","N"],
+        jawi:["ر","ن"]
+    },
+
+    {
+        rumi:["S","A","P"],
+        jawi:["س","ڤ"]
+    },
+
+    {
+        rumi:["T","A","M"],
+        jawi:["ت","م"]
+    },
+
+    {
+        rumi:["Y","A","M"],
+        jawi:["ي","م"]
+    }
+
+];
+
+
+/* =========================
+   HURUF PILIHAN
+========================= */
+
+const allJawiLetters = [
+
+    "ب","ت","ج","چ","د",
+    "ر","س","م","ن","ل",
+    "ڤ","ي","ق","ک","ݢ"
+
+];
+
+
+/* =========================
+   PEMBOLEH UBAH
+========================= */
+
+let currentQuestion = 0;
+let score = 0;
+
+let selectedLetter = null;
+let selectedButton = null;
+
+let userAnswer = ["",""];
+
+
+/* =========================
+   FUNGSI ACAK
+========================= */
+
+function shuffleArray(array){
+
+    let arr = [...array];
+
+    for(let i=arr.length-1; i>0; i--){
+
+        let j = Math.floor(Math.random()*(i+1));
+
+        [arr[i],arr[j]] = [arr[j],arr[i]];
+    }
+
+    return arr;
+}
+
+
+/* =========================
+   PAPAR SOALAN
+========================= */
+
+function loadQuestion(){
+
+    selectedLetter = null;
+    selectedButton = null;
+
+    userAnswer = ["",""];
+
+    document.getElementById("feedback").innerHTML = "";
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("letter1").innerHTML = q.rumi[0];
+    document.getElementById("letter2").innerHTML = q.rumi[1];
+    document.getElementById("letter3").innerHTML = q.rumi[2];
+
+    document.getElementById("answerBox1").innerHTML = "";
+    document.getElementById("answerBox2").innerHTML = "";
+
+    document.getElementById("questionNumber").innerHTML =
+        "Soalan " + (currentQuestion+1) +
+        " / " + questions.length;
+
+    document.getElementById("score").innerHTML =
+        "Markah: " + score;
+
+    generateChoices();
+}
+
+
+/* =========================
+   BINA PILIHAN HURUF
+========================= */
+
+function generateChoices(){
+
+    let choiceArea =
+        document.getElementById("choices");
+
+    choiceArea.innerHTML = "";
+
+    let mixed =
+        shuffleArray(allJawiLetters);
+
+    mixed.forEach(letter=>{
+
+        let btn =
+            document.createElement("button");
+
+        btn.className = "jawi-choice";
+
+        btn.innerHTML = letter;
+
+        btn.onclick = function(){
+
+            document
+            .querySelectorAll(".jawi-choice")
+            .forEach(b=>{
+
+                b.classList.remove("active");
+            });
+
+            btn.classList.add("active");
+
+            selectedLetter = letter;
+            selectedButton = btn;
+        };
+
+        choiceArea.appendChild(btn);
+
+    });
+
+}
+
+/* =========================
+   LETAK HURUF DALAM KOTAK
+========================= */
+
+function placeAnswer(boxIndex){
+
+    // Kalau belum pilih huruf
+    if(selectedLetter === null){
+        document.getElementById("feedback").innerHTML =
+            "⚠️ Pilih satu huruf Jawi dahulu.";
+        document.getElementById("feedback").className =
+            "feedback wrong";
+        return;
+    }
+
+    // Kalau kotak sudah ada huruf
+    if(userAnswer[boxIndex] !== ""){
+        return;
+    }
+
+    // Masukkan huruf ke dalam kotak
+    userAnswer[boxIndex] = selectedLetter;
+
+    let box = document.getElementById(
+        "answerBox" + (boxIndex + 1)
+    );
+
+    box.innerHTML = selectedLetter;
+    box.classList.add("selected");
+
+    // Hilangkan huruf daripada pilihan
+    if(selectedButton){
+        selectedButton.classList.add("used");
+    }
+
+    // Reset pilihan
+    selectedLetter = null;
+    selectedButton = null;
+
+    document
+        .querySelectorAll(".jawi-choice")
+        .forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+    document.getElementById("feedback").innerHTML = "";
+}
+
+
+/* =========================
+   SEMAK JAWAPAN
+========================= */
+
+function checkAnswer(){
+
+    // Pastikan kedua-dua kotak diisi
+    if(userAnswer[0] === "" || userAnswer[1] === ""){
+
+        document.getElementById("feedback").innerHTML =
+            "⚠️ Sila isi kedua-dua kotak dahulu.";
+
+        document.getElementById("feedback").className =
+            "feedback wrong";
+
+        return;
+    }
+
+    const correctAnswer =
+        questions[currentQuestion].jawi;
+
+    // Semak jawapan
+    if(
+        userAnswer[0] === correctAnswer[0] &&
+        userAnswer[1] === correctAnswer[1]
+    ){
+
+        score++;
+
+        document.getElementById("score").innerHTML =
+            "Markah: " + score;
+
+        document.getElementById("feedback").innerHTML =
+            "✅ Betul! Syabas!";
+
+        document.getElementById("feedback").className =
+            "feedback correct";
+
+        // Matikan butang semak sementara
+        document.querySelector(".check-btn").disabled = true;
+
+        // Tunggu sekejap kemudian pergi soalan seterusnya
+        setTimeout(function(){
+
+            currentQuestion++;
+
+            if(currentQuestion < questions.length){
+
+                document.querySelector(".check-btn").disabled = false;
+
+                loadQuestion();
+
+            }else{
+
+                showResult();
+
+            }
+
+        },1200);
+
+    }else{
+
+        document.getElementById("feedback").innerHTML =
+            "❌ Belum betul. Cuba lagi!";
+
+        document.getElementById("feedback").className =
+            "feedback wrong";
+    }
+}
+
+
+/* =========================
+   PAPAR KEPUTUSAN
+========================= */
+
+function showResult(){
+
+    document.getElementById("quizScreen").style.display =
+        "none";
+
+    document.getElementById("resultScreen").style.display =
+        "block";
+
+    document.getElementById("finalScore").innerHTML =
+        score + " / " + questions.length;
+
+
+    let percentage =
+        (score / questions.length) * 100;
+
+
+    let message = "";
+
+
+    if(percentage === 100){
+
+        message =
+            "🏆 Hebat! Semua jawapan betul!";
+
+    }else if(percentage >= 80){
+
+        message =
+            "🌟 Syabas! Pencapaian sangat baik!";
+
+    }else if(percentage >= 60){
+
+        message =
+            "👏 Bagus! Teruskan latihan.";
+
+    }else if(percentage >= 40){
+
+        message =
+            "💪 Cuba lagi. Kamu boleh buat lebih baik!";
+
+    }else{
+
+        message =
+            "📚 Teruskan berlatih Jawi. Jangan mudah berputus asa!";
+
+    }
+
+
+    document.getElementById("resultMessage").innerHTML =
+        message;
+}
+
+
+/* =========================
+   BUAT SEMULA
+========================= */
+
+function resetQuiz(){
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    selectedLetter = null;
+
+    selectedButton = null;
+
+    userAnswer = ["",""];
+
+
+    document.getElementById("quizScreen").style.display =
+        "block";
+
+    document.getElementById("resultScreen").style.display =
+        "none";
+
+
+    document.querySelector(".check-btn").disabled =
+        false;
+
+
+    document.getElementById("feedback").innerHTML =
+        "";
+
+
+    loadQuestion();
+}
+
+
+/* =========================
+   MULAKAN KUIZ
+========================= */
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
